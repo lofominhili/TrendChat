@@ -1,0 +1,11 @@
+services:
+  postgres:
+    image: 'postgres:latest'
+    environment:
+      - 'POSTGRES_PASSWORD=1111'
+      - 'POSTGRES_USER=admin'
+      - 'POSTGRES_DB=trendchat'
+    volumes:
+      - ./dockerDB:/var/lib/postgresql/data
+    ports:
+      - 5433:5432
