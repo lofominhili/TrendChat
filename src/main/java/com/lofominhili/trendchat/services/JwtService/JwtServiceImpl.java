@@ -1,6 +1,5 @@
-package com.lofominhili.trendchat.services.impl;
+package com.lofominhili.trendchat.services.JwtService;
 
-import com.lofominhili.trendchat.services.JwtService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

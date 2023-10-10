@@ -1,0 +1,12 @@
+package com.lofominhili.trendchat.controllers;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/api/profile")
+@RequiredArgsConstructor
+public class ProfileController {
+
+}

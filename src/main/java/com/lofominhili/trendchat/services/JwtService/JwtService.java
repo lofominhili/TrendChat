@@ -1,4 +1,4 @@
-package com.lofominhili.trendchat.services;
+package com.lofominhili.trendchat.services.JwtService;
 
 import org.springframework.security.core.userdetails.UserDetails;
 

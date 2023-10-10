@@ -1,13 +1,16 @@
 package com.lofominhili.trendchat.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.UUID;
 
 
 @Entity
@@ -18,20 +21,31 @@ public class UserEntity implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private UUID id;
+    private long id;
 
-    @Column(name = "name", nullable = false, unique = true, length = 15)
+    @Size(max = 20)
+    @NotNull
+    @NotBlank
+    @Column(name = "name", nullable = false, unique = true, length = 20)
     private String name;
 
-    @Column(name = "surname", nullable = false, unique = true, length = 15)
+    @Size(max = 25)
+    @Column(name = "surname", nullable = false, unique = true, length = 25)
     private String surname;
 
-    @Column(name = "username", nullable = false, unique = true, length = 20)
+    @Size(max = 255)
+    @NotNull
+    @NotBlank
+    @Column(name = "username", nullable = false)
     private String username;
 
-    @Column(name = "password", nullable = false, length = 30)
+    @Size(max = 255)
+    @NotNull
+    @NotBlank
+    @Column(name = "password", nullable = false)
     private String password;
 
+    @Size(max = 40)
     @Column(name = "email", unique = true, length = 40)
     private String email;
 
@@ -59,4 +73,10 @@ public class UserEntity implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    @Override
+    public String getUsername() { return username; }
+
+    @Override
+    public String getPassword() { return password; }
 }
