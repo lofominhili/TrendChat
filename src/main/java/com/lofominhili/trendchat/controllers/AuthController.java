@@ -27,23 +27,6 @@ public class AuthController {
 
     private final AuthService authService;
 
-    @PostMapping("/sign-in")
-    public ResponseEntity<SuccessDTO<UserDTO>> signIn(
-            @Valid @RequestBody SignInRequest request,
-            BindingResult validationResult
-    ) throws RequestDataValidationFailedException, AuthenticationFailedException {
-        if (validationResult.hasErrors()) {
-            throw new RequestDataValidationFailedException(GlobalExceptionHandler.handleValidationResults(validationResult));
-        }
-        UserDTO userDTO = authService.signIn(request);
-        return new ResponseEntity<>(
-                new SuccessDTO<>(
-                        HttpStatus.OK.value(),
-                        "Sign In",
-                        userDTO
-                ), HttpStatus.OK);
-    }
-
     @PostMapping("/sign-up")
     public ResponseEntity<SuccessDTO<String>> signUp(
             @Valid @RequestBody UserDTO userDTO,
@@ -52,21 +35,39 @@ public class AuthController {
         if (validationResult.hasErrors()) {
             throw new RequestDataValidationFailedException(GlobalExceptionHandler.handleValidationResults(validationResult));
         }
+        authService.signUp(userDTO);
         return new ResponseEntity<>(
                 new SuccessDTO<>(
                         HttpStatus.CREATED.value(),
                         "Sign Up",
-                        String.format("token: %s", authService.signUp(userDTO))
+                        "Successfully signed up!"
                 ), HttpStatus.CREATED);
     }
 
+    @PostMapping("/sign-in")
+    public ResponseEntity<SuccessDTO<String>> signIn(
+            @Valid @RequestBody SignInRequest request,
+            BindingResult validationResult
+    ) throws RequestDataValidationFailedException, AuthenticationFailedException {
+        if (validationResult.hasErrors()) {
+            throw new RequestDataValidationFailedException(GlobalExceptionHandler.handleValidationResults(validationResult));
+        }
+        return new ResponseEntity<>(
+                new SuccessDTO<>(
+                        HttpStatus.OK.value(),
+                        "Sign In",
+                        String.format("Successfully signed in! Use this token for further operations: %s", authService.signIn(request))
+                ), HttpStatus.OK);
+    }
+
     @PostMapping("/sign-out")
-    public ResponseEntity<SuccessDTO<String>> signOut(HttpServletRequest request) throws AuthenticationFailedException {
+    public ResponseEntity<SuccessDTO<String>> signOut(HttpServletRequest request) {
+        authService.signOut(request);
         return new ResponseEntity<>(
                 new SuccessDTO<>(
                         HttpStatus.OK.value(),
                         "Sign Out",
-                        "Success signed out"
+                        "Successfully signed out!"
                 ), HttpStatus.OK);
     }
 

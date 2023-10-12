@@ -12,12 +12,9 @@ import lombok.Data;
 public class SignInRequest {
 
     @Size(max = 40)
-    @Email(message = "{register.email.invalid}")
+    @Email(message = "Invalid Email pattern")
     @NotBlank(message = "The 'email' must not be null")
     private final String email;
-
-    @NotBlank(message = "The 'username' must not be null")
-    private final String username;
 
     @NotNull
     private final String password;

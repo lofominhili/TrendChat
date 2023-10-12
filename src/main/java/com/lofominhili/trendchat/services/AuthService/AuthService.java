@@ -3,11 +3,14 @@ package com.lofominhili.trendchat.services.AuthService;
 import com.lofominhili.trendchat.dto.SignInRequest;
 import com.lofominhili.trendchat.dto.UserDTO;
 import com.lofominhili.trendchat.exceptions.AuthenticationFailedException;
+import jakarta.servlet.http.HttpServletRequest;
 
 public interface AuthService {
-    String signUp(UserDTO request) throws AuthenticationFailedException;
+    void signUp(UserDTO request) throws AuthenticationFailedException;
 
-    UserDTO signIn(SignInRequest credentials) throws AuthenticationFailedException;
+    String signIn(SignInRequest credentials) throws AuthenticationFailedException;
+
+    void signOut(HttpServletRequest request);
 }
 
 

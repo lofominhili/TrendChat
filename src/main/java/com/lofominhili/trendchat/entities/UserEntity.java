@@ -1,6 +1,6 @@
 package com.lofominhili.trendchat.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.lofominhili.trendchat.utils.EmailVerificationStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -49,6 +49,9 @@ public class UserEntity implements UserDetails {
     @Column(name = "email", unique = true, length = 40)
     private String email;
 
+    @Enumerated(value = EnumType.STRING)
+    private EmailVerificationStatus emailVerificationStatus;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();
@@ -75,8 +78,12 @@ public class UserEntity implements UserDetails {
     }
 
     @Override
-    public String getUsername() { return username; }
+    public String getUsername() {
+        return username;
+    }
 
     @Override
-    public String getPassword() { return password; }
+    public String getPassword() {
+        return password;
+    }
 }
