@@ -1,21 +1,25 @@
-package com.lofominhili.trendchat.dto;
+package com.lofominhili.trendchat.dto.RequestDTO;
 
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class SignInRequest {
+public class UpdateProfileRequest {
+
+    @Size(max = 40)
+    private final String name;
+
+    @Size(max = 40)
+    private final String surname;
+
+    @Size(max = 40)
+    private final String username;
 
     @Size(max = 40)
     @Email(message = "Invalid Email pattern")
-    @NotBlank(message = "The 'email' must not be null")
     private final String email;
 
-    @NotNull
-    private final String password;
 }

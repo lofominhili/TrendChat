@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 public class EmailServiceImpl implements EmailService {
 
     private static final String CONFIRMATION_LINK = "http://localhost:8080/api/profile/confirm-email/";
+    private static final String DEACTIVATION_LINK = "http://localhost:8080/api/profile/reactivate-account/";
+
 
     @Value(value = "${spring.mail.username}")
     private String from;
@@ -25,11 +27,28 @@ public class EmailServiceImpl implements EmailService {
     public void sendConfirmationEmail() {
         UserEntity user = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String token = jwtService.generateToken(user);
+        SimpleMailMessage simpleMailMessage = createMailMessage(user, token, "Email confirmation",
+                String.format("To confirm the registration click this link: %s%s", CONFIRMATION_LINK, token));
+        javaMailSender.send(simpleMailMessage);
+    }
+
+    @Override
+    public void sendDeactivateAccountEmail() {
+        UserEntity user = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String token = jwtService.generateToken(user);
+        SimpleMailMessage simpleMailMessage = createMailMessage(user, token, "Account deactivation",
+                String.format("It looks like you have decided to deactivate your account, \n" +
+                        "Well, if you want to restore, here is the link for it(it will be available within 14 days): %s%s", DEACTIVATION_LINK, token));
+        javaMailSender.send(simpleMailMessage);
+    }
+
+    @Override
+    public SimpleMailMessage createMailMessage(UserEntity user, String token, String subject, String text) {
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-        simpleMailMessage.setSubject("Email confirmation");
-        simpleMailMessage.setText(String.format("To confirm the registration click this link: %s%s", CONFIRMATION_LINK, token));
+        simpleMailMessage.setSubject(subject);
+        simpleMailMessage.setText(text);
         simpleMailMessage.setFrom(from);
         simpleMailMessage.setTo(user.getEmail());
-        javaMailSender.send(simpleMailMessage);
+        return simpleMailMessage;
     }
 }

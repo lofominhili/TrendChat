@@ -1,5 +1,6 @@
 package com.lofominhili.trendchat.entities;
 
+import com.lofominhili.trendchat.utils.ActivationStatus;
 import com.lofominhili.trendchat.utils.EmailVerificationStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -51,6 +52,9 @@ public class UserEntity implements UserDetails {
 
     @Enumerated(value = EnumType.STRING)
     private EmailVerificationStatus emailVerificationStatus;
+
+    @Enumerated(value = EnumType.STRING)
+    private ActivationStatus activationStatus;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

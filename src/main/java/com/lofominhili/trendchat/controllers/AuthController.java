@@ -1,7 +1,7 @@
 package com.lofominhili.trendchat.controllers;
 
 import com.lofominhili.trendchat.dto.BasicDto.SuccessDTO;
-import com.lofominhili.trendchat.dto.SignInRequest;
+import com.lofominhili.trendchat.dto.RequestDTO.SignInRequest;
 import com.lofominhili.trendchat.dto.UserDTO;
 import com.lofominhili.trendchat.exceptions.AuthenticationFailedException;
 import com.lofominhili.trendchat.exceptions.RequestDataValidationFailedException;

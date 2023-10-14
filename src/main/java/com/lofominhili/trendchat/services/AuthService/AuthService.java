@@ -1,6 +1,6 @@
 package com.lofominhili.trendchat.services.AuthService;
 
-import com.lofominhili.trendchat.dto.SignInRequest;
+import com.lofominhili.trendchat.dto.RequestDTO.SignInRequest;
 import com.lofominhili.trendchat.dto.UserDTO;
 import com.lofominhili.trendchat.exceptions.AuthenticationFailedException;
 import jakarta.servlet.http.HttpServletRequest;

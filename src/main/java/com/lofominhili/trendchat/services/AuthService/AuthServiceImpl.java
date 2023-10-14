@@ -1,12 +1,13 @@
 package com.lofominhili.trendchat.services.AuthService;
 
-import com.lofominhili.trendchat.dto.SignInRequest;
+import com.lofominhili.trendchat.dto.RequestDTO.SignInRequest;
 import com.lofominhili.trendchat.dto.UserDTO;
 import com.lofominhili.trendchat.entities.UserEntity;
 import com.lofominhili.trendchat.exceptions.AuthenticationFailedException;
 import com.lofominhili.trendchat.mappers.UserMapper;
 import com.lofominhili.trendchat.repository.UserRepository;
 import com.lofominhili.trendchat.services.JwtService.JwtService;
+import com.lofominhili.trendchat.utils.ActivationStatus;
 import com.lofominhili.trendchat.utils.EmailVerificationStatus;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
@@ -28,10 +29,11 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public void signUp(UserDTO request) throws AuthenticationFailedException {
         if (userRepository.findByUsername(request.getUsername()).isPresent() && (userRepository.findByEmail(request.getEmail())).isPresent()) {
-            throw new AuthenticationFailedException("User with prompted credential already exists");
+            throw new AuthenticationFailedException("User with prompted credentials already exists");
         }
         var user = userMapper.toEntity(request);
         user.setEmailVerificationStatus(EmailVerificationStatus.UNCONFIRMED);
+        user.setActivationStatus(ActivationStatus.ACTIVATED);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         userRepository.save(user);
     }

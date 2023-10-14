@@ -30,7 +30,8 @@ public class SecurityConfig {
     protected static final String[] ENDPOINTS_WHITELIST = {
             "/api/auth/sign-in",
             "/api/auth/sign-up",
-            "/api/profile/confirm-email/*"
+            "/api/profile/confirm-email/*",
+            "/api/profile/reactivate-account/*"
     };
 
     @Bean
