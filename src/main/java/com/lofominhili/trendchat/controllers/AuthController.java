@@ -1,7 +1,7 @@
 package com.lofominhili.trendchat.controllers;
 
 import com.lofominhili.trendchat.dto.BasicDto.SuccessDTO;
-import com.lofominhili.trendchat.dto.RequestDTO.SignInRequest;
+import com.lofominhili.trendchat.dto.RequestDTO.SigninRequest;
 import com.lofominhili.trendchat.dto.UserDTO;
 import com.lofominhili.trendchat.exceptions.AuthenticationFailedException;
 import com.lofominhili.trendchat.exceptions.RequestDataValidationFailedException;
@@ -46,7 +46,7 @@ public class AuthController {
 
     @PostMapping("/sign-in")
     public ResponseEntity<SuccessDTO<String>> signIn(
-            @Valid @RequestBody SignInRequest request,
+            @Valid @RequestBody SigninRequest request,
             BindingResult validationResult
     ) throws RequestDataValidationFailedException, AuthenticationFailedException {
         if (validationResult.hasErrors()) {

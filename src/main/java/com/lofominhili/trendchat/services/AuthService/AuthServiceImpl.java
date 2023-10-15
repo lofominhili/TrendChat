@@ -1,6 +1,6 @@
 package com.lofominhili.trendchat.services.AuthService;
 
-import com.lofominhili.trendchat.dto.RequestDTO.SignInRequest;
+import com.lofominhili.trendchat.dto.RequestDTO.SigninRequest;
 import com.lofominhili.trendchat.dto.UserDTO;
 import com.lofominhili.trendchat.entities.UserEntity;
 import com.lofominhili.trendchat.exceptions.AuthenticationFailedException;
@@ -39,7 +39,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public String signIn(SignInRequest credentials) throws AuthenticationFailedException {
+    public String signIn(SigninRequest credentials) throws AuthenticationFailedException {
         UserEntity user = userRepository.findByEmail(credentials.getEmail()).orElseThrow(() -> new AuthenticationFailedException("Email not found"));
         if (!passwordEncoder.matches(credentials.getPassword(), user.getPassword())) {
             throw new AuthenticationFailedException("Wrong credentials");

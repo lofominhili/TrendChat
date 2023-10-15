@@ -3,9 +3,6 @@ package com.lofominhili.trendchat.entities;
 import com.lofominhili.trendchat.utils.ActivationStatus;
 import com.lofominhili.trendchat.utils.EmailVerificationStatus;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,29 +21,18 @@ public class UserEntity implements UserDetails {
     @Column(name = "id")
     private long id;
 
-    @Size(max = 20)
-    @NotNull
-    @NotBlank
     @Column(name = "name", nullable = false, unique = true, length = 20)
     private String name;
 
-    @Size(max = 25)
     @Column(name = "surname", nullable = false, unique = true, length = 25)
     private String surname;
 
-    @Size(max = 255)
-    @NotNull
-    @NotBlank
     @Column(name = "username", nullable = false)
     private String username;
 
-    @Size(max = 255)
-    @NotNull
-    @NotBlank
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Size(max = 40)
     @Column(name = "email", unique = true, length = 40)
     private String email;
 

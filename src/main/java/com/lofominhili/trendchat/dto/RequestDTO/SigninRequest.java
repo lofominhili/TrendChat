@@ -9,7 +9,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class SignInRequest {
+public class SigninRequest {
 
     @Size(max = 40)
     @Email(message = "Invalid Email pattern")

@@ -21,10 +21,12 @@ public class UserDTO {
     @NotBlank(message = "The 'surname' must not be null")
     private String surname;
 
+    @Size(min = 3, max = 20)
     @NotNull
     @NotBlank(message = "The 'username' must not be null")
     private String username;
 
+    @Size(min = 6, max = 40)
     @NotNull
     @NotBlank
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
