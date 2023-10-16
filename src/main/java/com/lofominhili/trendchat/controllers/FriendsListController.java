@@ -4,6 +4,8 @@ import com.lofominhili.trendchat.dto.BasicDto.SuccessDTO;
 import com.lofominhili.trendchat.exceptions.FriendDuplicateException;
 import com.lofominhili.trendchat.exceptions.FriendsListVisibleException;
 import com.lofominhili.trendchat.services.FriendService.FriendService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,8 @@ public class FriendsListController {
 
     private final FriendService friendService;
 
+    @Operation(summary = "Add user to friends list")
+    @SecurityRequirement(name = "JWT")
     @PostMapping(value = "/add/{username}")
     public ResponseEntity<SuccessDTO<String>> addFriend(@PathVariable String username) throws FriendDuplicateException {
         friendService.addFriend(username);
@@ -30,6 +34,8 @@ public class FriendsListController {
         );
     }
 
+    @Operation(summary = "Get friends list of current user")
+    @SecurityRequirement(name = "JWT")
     @GetMapping(value = "/get")
     public ResponseEntity<SuccessDTO<List<String>>> getListOfFriends() {
         return new ResponseEntity<>(
@@ -41,6 +47,8 @@ public class FriendsListController {
         );
     }
 
+    @Operation(summary = "Get friends list of chosen user")
+    @SecurityRequirement(name = "JWT")
     @GetMapping(value = "/get/{username}")
     public ResponseEntity<SuccessDTO<List<String>>> getListOfFriends(@PathVariable String username) throws FriendsListVisibleException {
         return new ResponseEntity<>(
@@ -52,6 +60,8 @@ public class FriendsListController {
         );
     }
 
+    @Operation(summary = "Hide friends list from other users")
+    @SecurityRequirement(name = "JWT")
     @PostMapping(value = "/hide")
     public ResponseEntity<SuccessDTO<String>> hideFriends() throws FriendsListVisibleException {
         friendService.hideFriends();

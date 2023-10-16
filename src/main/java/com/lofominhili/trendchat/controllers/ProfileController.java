@@ -7,6 +7,8 @@ import com.lofominhili.trendchat.exceptions.RequestDataValidationFailedException
 import com.lofominhili.trendchat.exceptions.TokenValidationException;
 import com.lofominhili.trendchat.services.ProfileService.ProfileService;
 import com.lofominhili.trendchat.utils.GlobalExceptionHandler;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -22,8 +24,9 @@ public class ProfileController {
 
     private final ProfileService profileService;
 
+    @Operation(summary = "Confirm email by token")
     @GetMapping(value = "/confirm-email/{token}")
-    public ResponseEntity<SuccessDTO<String>> confirmEmail(@PathVariable String token) throws TokenValidationException {
+    public ResponseEntity<SuccessDTO<String>> sendConfirmation(@PathVariable String token) throws TokenValidationException {
         return new ResponseEntity<>(
                 new SuccessDTO<>(
                         HttpStatus.OK.value(),
@@ -32,8 +35,10 @@ public class ProfileController {
                 ), HttpStatus.OK);
     }
 
+    @Operation(summary = "Send email confirmation")
+    @SecurityRequirement(name = "JWT")
     @PostMapping(value = "/send-confirmation")
-    public ResponseEntity<SuccessDTO<String>> confirmEmail() {
+    public ResponseEntity<SuccessDTO<String>> sendConfirmation() {
         profileService.sendConfirmation();
         return new ResponseEntity<>(
                 new SuccessDTO<>(
@@ -43,8 +48,10 @@ public class ProfileController {
                 ), HttpStatus.OK);
     }
 
+    @Operation(summary = "Update user profile")
+    @SecurityRequirement(name = "JWT")
     @PutMapping(value = "/update-profile")
-    public ResponseEntity<SuccessDTO<String>> editUser(
+    public ResponseEntity<SuccessDTO<String>> updateProfile(
             @Valid @RequestBody UpdateProfileRequest request,
             BindingResult validationResult
     ) throws RequestDataValidationFailedException {
@@ -60,8 +67,10 @@ public class ProfileController {
 
     }
 
+    @Operation(summary = "Update user password")
+    @SecurityRequirement(name = "JWT")
     @PutMapping(value = "/update-password")
-    public ResponseEntity<SuccessDTO<String>> editUser(
+    public ResponseEntity<SuccessDTO<String>> updatePassword(
             @Valid @RequestBody UpdatePasswordRequest request,
             BindingResult validationResult
     ) throws RequestDataValidationFailedException {
@@ -77,8 +86,10 @@ public class ProfileController {
 
     }
 
+    @Operation(summary = "Deactivate user account")
+    @SecurityRequirement(name = "JWT")
     @PostMapping(value = "/deactivate-account")
-    public ResponseEntity<SuccessDTO<String>> disableAccount(HttpServletRequest request) {
+    public ResponseEntity<SuccessDTO<String>> deactivateAccount(HttpServletRequest request) {
         return new ResponseEntity<>(
                 new SuccessDTO<>(
                         HttpStatus.OK.value(),
@@ -88,8 +99,9 @@ public class ProfileController {
         );
     }
 
+    @Operation(summary = "Reactivate user account")
     @GetMapping(value = "/reactivate-account/{token}")
-    public ResponseEntity<SuccessDTO<String>> enableAccount(@PathVariable String token) {
+    public ResponseEntity<SuccessDTO<String>> reactivateAccount(@PathVariable String token) {
         return new ResponseEntity<>(
                 new SuccessDTO<>(
                         HttpStatus.OK.value(),

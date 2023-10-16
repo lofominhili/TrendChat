@@ -1,6 +1,10 @@
+version: '3.1'
+
 services:
-  postgres:
-    image: 'postgres:latest'
+  db:
+    image: 'postgres:15'
+    restart: always
+    container_name: database
     environment:
       - 'POSTGRES_PASSWORD=1111'
       - 'POSTGRES_USER=admin'
@@ -9,3 +13,11 @@ services:
       - ./dockerDB:/var/lib/postgresql/data
     ports:
       - 5433:5432
+
+  trend_chat:
+    container_name: trendchat
+    build: .
+    ports:
+      - 8080:8080
+    depends_on:
+      - db

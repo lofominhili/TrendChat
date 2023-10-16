@@ -31,7 +31,11 @@ public class SecurityConfig {
             "/api/auth/sign-in",
             "/api/auth/sign-up",
             "/api/profile/confirm-email/*",
-            "/api/profile/reactivate-account/*"
+            "/api/profile/reactivate-account/*",
+            "/swagger-ui/index.html",
+            "/swagger-ui/*",
+            "/v3/api-docs",
+            "/v3/api-docs/*"
     };
 
     @Bean

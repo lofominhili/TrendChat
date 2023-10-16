@@ -1,0 +1,204 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1697478645876-1
+      author: ?????? (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: _chat_message_pkey
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: content
+                  type: VARCHAR(255)
+              - column:
+                  name: time_stamp
+                  type: TIMESTAMP WITHOUT TIME ZONE
+              - column:
+                  name: receiver_id
+                  type: BIGINT
+              - column:
+                  name: sender_id
+                  type: BIGINT
+            tableName: _chat_message
+  - changeSet:
+      id: 1697478645876-2
+      author: ?????? (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: _token_whitelist_pkey
+                  name: id
+                  startWith: 12
+                  type: BIGINT
+              - column:
+                  name: token
+                  type: VARCHAR(255)
+              - column:
+                  name: username
+                  type: VARCHAR(255)
+            tableName: _token_whitelist
+  - changeSet:
+      id: 1697478645876-3
+      author: ?????? (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: _user_pkey
+                  name: id
+                  startWith: 4
+                  type: BIGINT
+              - column:
+                  name: activation_status
+                  type: VARCHAR(255)
+              - column:
+                  name: email
+                  type: VARCHAR(40)
+              - column:
+                  name: email_verification_status
+                  type: VARCHAR(255)
+              - column:
+                  name: friends_visibility
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: name
+                  type: VARCHAR(20)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: password
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: surname
+                  type: VARCHAR(25)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: username
+                  type: VARCHAR(255)
+            tableName: _user
+  - changeSet:
+      id: 1697478645876-4
+      author: ?????? (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: _friend_pkey
+                  name: id
+                  startWith: 14
+                  type: BIGINT
+              - column:
+                  name: friend_id
+                  type: BIGINT
+              - column:
+                  name: user_id
+                  type: BIGINT
+            tableName: _friend
+  - changeSet:
+      id: 1697478645876-5
+      author: ?????? (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addUniqueConstraint:
+            columnNames: name
+            constraintName: uk_ci6fhbsep7c2fig90pxp6aads
+            tableName: _user
+  - changeSet:
+      id: 1697478645876-6
+      author: ?????? (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addUniqueConstraint:
+            columnNames: email
+            constraintName: uk_k11y3pdtsrjgy8w9b6q4bjwrx
+            tableName: _user
+  - changeSet:
+      id: 1697478645876-7
+      author: ?????? (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addUniqueConstraint:
+            columnNames: surname
+            constraintName: uk_lo2o35o9bx1gxd6obtcl8oenc
+            tableName: _user
+  - changeSet:
+      id: 1697478645876-8
+      author: ?????? (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: sender_id
+            baseTableName: _chat_message
+            constraintName: fkiv8rbl6b5dvc97f48yxxwl5fg
+            onDelete: NO ACTION
+            onUpdate: NO ACTION
+            referencedColumnNames: id
+            referencedTableName: _user
+  - changeSet:
+      id: 1697478645876-9
+      author: ?????? (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: friend_id
+            baseTableName: _friend
+            constraintName: fkmyxlnw6mrdwfjtcooyk7itjyp
+            onDelete: NO ACTION
+            onUpdate: NO ACTION
+            referencedColumnNames: id
+            referencedTableName: _user
+  - changeSet:
+      id: 1697478645876-10
+      author: ?????? (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: _friend
+            constraintName: fkogw08fdfdr1srhq2pb554ukj2
+            onDelete: NO ACTION
+            onUpdate: NO ACTION
+            referencedColumnNames: id
+            referencedTableName: _user
+  - changeSet:
+      id: 1697478645876-11
+      author: ?????? (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: receiver_id
+            baseTableName: _chat_message
+            constraintName: fksr25uipins2fc6v696sycteai
+            onDelete: NO ACTION
+            onUpdate: NO ACTION
+            referencedColumnNames: id
+            referencedTableName: _user
+

@@ -7,6 +7,8 @@ import com.lofominhili.trendchat.exceptions.AuthenticationFailedException;
 import com.lofominhili.trendchat.exceptions.RequestDataValidationFailedException;
 import com.lofominhili.trendchat.services.AuthService.AuthService;
 import com.lofominhili.trendchat.utils.GlobalExceptionHandler;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +29,7 @@ public class AuthController {
 
     private final AuthService authService;
 
+    @Operation(summary = "Register new user")
     @PostMapping("/sign-up")
     public ResponseEntity<SuccessDTO<String>> signUp(
             @Valid @RequestBody UserDTO userDTO,
@@ -44,6 +47,7 @@ public class AuthController {
                 ), HttpStatus.CREATED);
     }
 
+    @Operation(summary = "Logins user")
     @PostMapping("/sign-in")
     public ResponseEntity<SuccessDTO<String>> signIn(
             @Valid @RequestBody SigninRequest request,
@@ -60,6 +64,8 @@ public class AuthController {
                 ), HttpStatus.OK);
     }
 
+    @Operation(summary = "Logout user")
+    @SecurityRequirement(name = "JWT")
     @PostMapping("/sign-out")
     public ResponseEntity<SuccessDTO<String>> signOut(HttpServletRequest request) {
         authService.signOut(request);
