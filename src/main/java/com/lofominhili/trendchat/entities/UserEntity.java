@@ -2,6 +2,7 @@ package com.lofominhili.trendchat.entities;
 
 import com.lofominhili.trendchat.utils.ActivationStatus;
 import com.lofominhili.trendchat.utils.EmailVerificationStatus;
+import com.lofominhili.trendchat.utils.FriendsVisibility;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -35,6 +36,9 @@ public class UserEntity implements UserDetails {
 
     @Column(name = "email", unique = true, length = 40)
     private String email;
+
+    @Enumerated(value = EnumType.STRING)
+    private FriendsVisibility friendsVisibility;
 
     @Enumerated(value = EnumType.STRING)
     private EmailVerificationStatus emailVerificationStatus;

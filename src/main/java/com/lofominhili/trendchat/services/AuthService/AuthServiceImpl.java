@@ -9,6 +9,7 @@ import com.lofominhili.trendchat.repository.UserRepository;
 import com.lofominhili.trendchat.services.JwtService.JwtService;
 import com.lofominhili.trendchat.utils.ActivationStatus;
 import com.lofominhili.trendchat.utils.EmailVerificationStatus;
+import com.lofominhili.trendchat.utils.FriendsVisibility;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -31,9 +32,10 @@ public class AuthServiceImpl implements AuthService {
         if (userRepository.findByUsername(request.getUsername()).isPresent() && (userRepository.findByEmail(request.getEmail())).isPresent()) {
             throw new AuthenticationFailedException("User with prompted credentials already exists");
         }
-        var user = userMapper.toEntity(request);
+        UserEntity user = userMapper.toEntity(request);
         user.setEmailVerificationStatus(EmailVerificationStatus.UNCONFIRMED);
         user.setActivationStatus(ActivationStatus.ACTIVATED);
+        user.setFriendsVisibility(FriendsVisibility.VISIBLE);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         userRepository.save(user);
     }
